@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../../../shared/services/auth/auth.service';
 
 @Component({
 	selector: 'login',
@@ -7,11 +10,17 @@ import { FormGroup } from '@angular/forms';
 	styleUrls: [ './login.component.scss' ]
 })
 export class LoginComponent implements OnInit {
-	constructor() {}
+	error: string;
+	constructor(private authService: AuthService, private router: Router) {}
 
 	ngOnInit() {}
 
-	loginUser(data: FormGroup) {
-		console.log('Login:', data.value);
+	async loginUser(data: FormGroup) {
+		try {
+			await this.authService.loginUser(data.value);
+			this.router.navigate([ '/' ]);
+		} catch (err) {
+			this.error = err.message;
+		}
 	}
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { AuthService } from '../../../shared/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'register',
@@ -7,11 +9,17 @@ import { FormGroup } from '@angular/forms';
 	styleUrls: [ './register.component.scss' ]
 })
 export class RegisterComponent implements OnInit {
-	constructor() {}
+	error: string;
+	constructor(private authService: AuthService, private router: Router) {}
 
 	ngOnInit() {}
 
-	registerUser(data: FormGroup) {
-		console.log('Register:', data.value);
+	async registerUser(data: FormGroup) {
+		try {
+			await this.authService.createUser(data.value);
+			this.router.navigate([ '/' ]);
+		} catch (err) {
+			this.error = err.message;
+		}
 	}
 }

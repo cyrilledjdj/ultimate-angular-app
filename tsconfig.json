@@ -19,7 +19,8 @@
       "dom"
     ],
 		"paths": {
-			"store": ["src/app/store"]
+			"store": ["src/app/store"],
+			"appConfig": [".firebase/config"]
 		}
   },
   "angularCompilerOptions": {
