@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 	styleUrls: [ './auth-form.component.scss' ]
 })
 export class AuthFormComponent implements OnInit {
+	focusedPassword = false;
+	focusedEmail = false;
 	form: FormGroup = this.fb.group({
 		email: [ '', Validators.email ],
 		password: [ '', Validators.required ]
