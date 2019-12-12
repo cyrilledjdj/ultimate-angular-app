@@ -11,7 +11,6 @@ import { AuthService, User } from './auth/shared/services/auth/auth.service';
 	styleUrls: [ './app.component.scss' ]
 })
 export class AppComponent implements OnInit, OnDestroy {
-	title = 'angular-pro-app';
 	user$: Observable<User>;
 	subscription: Subscription;
 
