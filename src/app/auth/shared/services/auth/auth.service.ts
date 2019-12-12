@@ -30,6 +30,10 @@ export class AuthService {
 
 	constructor(private af: AngularFireAuth, private store: Store) {}
 
+	get authState() {
+		return this.af.authState;
+	}
+
 	/**
 	 * create a user in the database
 	 * @param param.email email of user
