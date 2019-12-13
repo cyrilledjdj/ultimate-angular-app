@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Meal } from '../../../shared/services/meals/meals.service';
+import { Meal, MealsService } from '../../../shared/services/meals/meals.service';
 
 @Component({
 	selector: 'meal',
@@ -8,11 +9,16 @@ import { Meal } from '../../../shared/services/meals/meals.service';
 	styleUrls: [ './meal.component.scss' ]
 })
 export class MealComponent implements OnInit {
-	constructor() {}
+	constructor(private mealsService: MealsService, private router: Router) {}
 
 	ngOnInit() {}
 
-	addMeal(data: Meal) {
-		console.log('Got the meal', data);
+	async addMeal(data: Meal) {
+		await this.mealsService.addMeal(data);
+		this.backToMeals();
+	}
+
+	backToMeals() {
+		this.router.navigate([ 'meals' ]);
 	}
 }

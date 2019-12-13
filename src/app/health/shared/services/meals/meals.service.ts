@@ -28,4 +28,8 @@ export class MealsService {
 	}
 
 	constructor(private store: Store, private db: AngularFireDatabase, private authServive: AuthService) {}
+
+	addMeal(meal: Meal) {
+		return this.db.list(`meals/${this.uid}`).push(meal);
+	}
 }
