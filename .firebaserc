@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "another-fitness-app"
+  },
+  "targets": {
+    "another-fitness-app": {
+      "hosting": {
+        "angular-pro-app": [
+          "another-fitness-app"
+        ]
+      }
+    }
   }
 }
