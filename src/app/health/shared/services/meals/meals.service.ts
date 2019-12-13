@@ -4,7 +4,7 @@ import { Store } from 'store';
 
 import { AuthService } from '../../../../auth/shared/services/auth/auth.service';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 export interface Meal {
 	name: string;
@@ -18,10 +18,14 @@ export interface Meal {
 	providedIn: 'root'
 })
 export class MealsService {
-	meals$: Observable<Meal[]> = this.db
-		.list<Meal>(`meals/${this.uid}`)
-		.valueChanges()
-		.pipe(tap((next) => this.store.set('meals', next)));
+	meals$: Observable<Meal[]> = this.db.list<Meal>(`meals/${this.uid}`).snapshotChanges().pipe(
+		map((actions) => {
+			return actions.map((a) => ({ $key: a.key, ...a.payload.val() }));
+		}),
+		tap((next) => {
+			return this.store.set('meals', next);
+		})
+	);
 
 	get uid() {
 		return this.authServive.user.uid;
@@ -31,5 +35,9 @@ export class MealsService {
 
 	addMeal(meal: Meal) {
 		return this.db.list(`meals/${this.uid}`).push(meal);
+	}
+
+	removeMeal(key: string) {
+		return this.db.list(`meals/${this.uid}`).remove(key);
 	}
 }
