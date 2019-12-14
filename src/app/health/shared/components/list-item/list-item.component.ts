@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { MealsService } from '../../services/meals/meals.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class ListItemComponent implements OnInit {
 	ngOnInit() {}
 
 	getRoute(item: any) {
-		return [ `../meals`, item.$key ];
+		return [ `../${item.ingredients ? 'meals' : 'workouts'}`, item.$key ];
 	}
 
 	toggle() {
