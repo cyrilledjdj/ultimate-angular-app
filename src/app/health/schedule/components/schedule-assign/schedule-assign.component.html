@@ -1,0 +1,36 @@
+<div class="schedule-assign">
+	<div class="schedule-assign__modal">
+		<div class="schedule-assign__title">
+			<h1>
+				<img
+					src="/assets/img/{{section.type === 'workouts' ? 'workout' : 'food' }}.svg">
+				Assign {{ section.type }}
+			</h1>
+			<a [routerLink]="getRoute(section.type)" class="btn__add">
+				<img src="/assets/img/add-white.svg">
+				New {{section.type}}
+			</a>
+		</div>
+		<div class="schedule-assign__list">
+			<span *ngIf="!list?.length" class="schedule-assign__empty">
+				<img src="/assets/img/face.svg">
+				Nothing here to assign
+			</span>
+			<div *ngFor="let item of list" [class.active]="exists(item.name)"
+				(click)="toggleItem(item.name)">
+				{{ item.name }}
+			</div>
+		</div>
+		<div class="schedule-assign__submit">
+			<div>
+				<button (click)="updateAssign()" type="button" class="button">
+					Update
+				</button>
+				<button (click)="cancelAssign()" type="button"
+					class="button button--cancel">
+					Cancel
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
