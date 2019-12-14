@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Store } from 'store';
 
 import { AuthService } from '../../../../auth/shared/services/auth/auth.service';
@@ -28,6 +28,31 @@ export interface ScheduleList {
 export class ScheduleService {
 	private date$ = new BehaviorSubject(new Date());
 	private section$ = new Subject();
+	private itemList$ = new Subject();
+
+	items$ = this.itemList$.pipe(
+		withLatestFrom(this.section$),
+		map(([ items, section ]: any) => {
+			const id = section.data.$key;
+
+			const defaults: ScheduleItem = {
+				workouts: null,
+				meals: null,
+				section: section.section,
+				timestamp: new Date(section.day).getTime()
+			};
+
+			const payload = {
+				...id ? section.data : defaults,
+				...items
+			};
+
+			if (id) {
+				return this.updateSection(id, payload);
+			}
+			return this.createSection(payload);
+		})
+	);
 
 	selected$ = this.section$.pipe(tap((next) => this.store.set('selected', next)));
 
@@ -68,8 +93,20 @@ export class ScheduleService {
 		this.date$.next(date);
 	}
 
+	updateItems(items: string[]) {
+		this.itemList$.next(items);
+	}
+
 	selectSection(data: any) {
 		this.section$.next(data);
+	}
+
+	private createSection(payload: ScheduleItem) {
+		return this.db.list(`schedule/${this.uid}`).push(payload);
+	}
+
+	private updateSection(key: string, payload: ScheduleItem) {
+		return this.db.object(`schedule/${this.uid}/${key}`).update(payload);
 	}
 
 	private getSchedule(startAt: number, endAt: number) {

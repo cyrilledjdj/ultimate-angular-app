@@ -3,5 +3,6 @@
 		[items]="schedule$ | async" (selectChange)="changeSection($event)">
 	</schedule-calendar>
 	<schedule-assign *ngIf="open" [section]="selected$ | async"
-		[list]="list$ | async"> </schedule-assign>
+		[list]="list$ | async" (update)="assignItem($event)"
+		(cancel)="closeAssign()"> </schedule-assign>
 </div>

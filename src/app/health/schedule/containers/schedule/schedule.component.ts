@@ -35,12 +35,22 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 			this.scheduleService.schedule$.subscribe(),
 			this.scheduleService.selected$.subscribe(),
 			this.scheduleService.list$.subscribe(),
+			this.scheduleService.items$.subscribe(),
 			this.mealsService.meals$.subscribe(),
 			this.workoutsService.workouts$.subscribe()
 		];
 	}
 	ngOnDestroy() {
 		this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+	}
+
+	closeAssign() {
+		this.open = false;
+	}
+
+	assignItem(data: string[]) {
+		this.scheduleService.updateItems(data);
+		this.closeAssign();
 	}
 
 	changeDate(date: Date) {
