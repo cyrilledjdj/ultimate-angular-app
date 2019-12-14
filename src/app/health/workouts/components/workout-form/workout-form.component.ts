@@ -1,12 +1,22 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnChanges,
+	OnInit,
+	Output,
+	SimpleChanges
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Workout } from '../../../shared/services/workouts/workouts.service';
 
 @Component({
 	selector: 'workout-form',
 	templateUrl: './workout-form.component.html',
-	styleUrls: [ './workout-form.component.scss' ]
+	styleUrls: [ './workout-form.component.scss' ],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WorkoutFormComponent implements OnInit, OnChanges {
 	@Output() create = new EventEmitter<Workout>();
@@ -19,7 +29,8 @@ export class WorkoutFormComponent implements OnInit, OnChanges {
 	exists = false;
 
 	form: FormGroup = this.fb.group({
-		name: this.fb.control('', [ Validators.required ])
+		name: this.fb.control('', [ Validators.required ]),
+		type: 'strength'
 	});
 
 	get required() {
