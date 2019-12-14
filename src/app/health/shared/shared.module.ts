@@ -4,18 +4,19 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { ListItemComponent } from './components/list-item/list-item.component';
 import { MealsService } from './services/meals/meals.service';
+import { WorkoutsService } from './services/workouts/workouts.service';
 import { SharedRoutingModule } from './shared-routing.module';
 
 @NgModule({
 	declarations: [ ListItemComponent ],
 	imports: [ CommonModule, SharedRoutingModule, AngularFireDatabaseModule ],
-	exports: [ListItemComponent]
+	exports: [ ListItemComponent ]
 })
 export class SharedModule {
 	static forRoot(): ModuleWithProviders {
 		return {
 			ngModule: SharedModule,
-			providers: [ MealsService ]
+			providers: [ MealsService, WorkoutsService ]
 		};
 	}
 }

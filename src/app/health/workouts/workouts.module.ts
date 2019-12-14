@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { WorkoutsRoutingModule } from './workouts-routing.module';
+import { SharedModule } from '../shared/shared.module';
+import { WorkoutFormComponent } from './components/workout-form/workout-form.component';
+import { WorkoutComponent } from './containers/workout/workout.component';
 import { WorkoutsComponent } from './containers/workouts/workouts.component';
-
+import { WorkoutsRoutingModule } from './workouts-routing.module';
 
 @NgModule({
-  declarations: [WorkoutsComponent],
-  imports: [
-    CommonModule,
-    WorkoutsRoutingModule
-  ]
+	declarations: [ WorkoutsComponent, WorkoutComponent, WorkoutFormComponent ],
+	imports: [ CommonModule, ReactiveFormsModule, WorkoutsRoutingModule, SharedModule ]
 })
-export class WorkoutsModule { }
+export class WorkoutsModule {}
