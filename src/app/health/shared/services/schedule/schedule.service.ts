@@ -12,4 +12,8 @@ export class ScheduleService {
 	schedule$: Observable<any[]> = this.date$.pipe(tap((next: any) => this.store.set('date', next)));
 
 	constructor(private store: Store) {}
+
+	updateDate(date: Date) {
+		this.date$.next(date);
+	}
 }

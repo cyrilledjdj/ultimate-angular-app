@@ -1,3 +1,5 @@
 <div class="calendar">
-	{{ date | date : 'fullDate' }}
+	<schedule-controls [selected]="selectedDay" (move)="onChange($event)">
+
+	</schedule-controls>
 </div>
