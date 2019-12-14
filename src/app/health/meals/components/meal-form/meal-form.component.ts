@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnChanges,
+	OnInit,
+	Output,
+	SimpleChanges
+} from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { Meal } from '../../../shared/services/meals/meals.service';
 
 @Component({
@@ -8,8 +18,16 @@ import { Meal } from '../../../shared/services/meals/meals.service';
 	styleUrls: [ './meal-form.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MealFormComponent implements OnInit {
+export class MealFormComponent implements OnInit, OnChanges {
 	@Output() create = new EventEmitter<Meal>();
+	@Output() update = new EventEmitter<Meal>();
+	@Output() remove = new EventEmitter<Meal>();
+
+	@Input() meal: Meal;
+
+	toggled = false;
+	exists = false;
+
 	form: FormGroup = this.fb.group({
 		name: this.fb.control('', [ Validators.required ]),
 		ingredients: this.fb.array([ '' ])
@@ -26,10 +44,42 @@ export class MealFormComponent implements OnInit {
 
 	ngOnInit() {}
 
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.meal.currentValue.name) {
+			this.exists = true;
+			const value = this.meal;
+			this.form.patchValue(value);
+
+			this.emptyIngredients();
+
+			if (value.ingredients) {
+				for (const item of value.ingredients) {
+					this.ingredients.push(this.fb.control(item));
+				}
+			}
+		}
+	}
+
+	emptyIngredients() {
+		while (this.ingredients.controls.length) {
+			this.ingredients.removeAt(0);
+		}
+	}
+
 	createMeal() {
 		if (this.form.valid) {
 			this.create.emit(this.form.value);
 		}
+	}
+
+	updateMeal() {
+		if (this.form.valid) {
+			this.update.emit(this.form.value);
+		}
+	}
+
+	removeMeal() {
+		this.remove.emit(this.form.value);
 	}
 
 	addIngredient() {
@@ -38,5 +88,9 @@ export class MealFormComponent implements OnInit {
 
 	removeIngredient(index: number) {
 		this.ingredients.removeAt(index);
+	}
+
+	toggle() {
+		this.toggled = !this.toggled;
 	}
 }
