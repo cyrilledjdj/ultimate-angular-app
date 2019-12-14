@@ -6,7 +6,7 @@
 	<div>
 		<div class="schedule-section__item food"
 			*ngIf="section.meals; else addMeal"
-			(click)="onSelect('meals',section.meals)">
+			(click)="onSelect('meals', section.meals)">
 			<span>{{ section.meals | join }}</span>
 		</div>
 		<ng-template #addMeal>
@@ -14,17 +14,16 @@
 				Assign meal
 			</div>
 		</ng-template>
-
 		<div class="schedule-section__item workout"
 			*ngIf="section.workouts; else addWorkout"
-			(click)="onSelect('workouts',section.workouts)">
+			(click)="onSelect('workouts', section.workouts)">
 			<span>{{ section.workouts | join }}</span>
 		</div>
 		<ng-template #addWorkout>
 			<div class="schedule-section__item" (click)="onSelect('workouts')">
-				Assign workouts
+				Assign workout
 			</div>
 		</ng-template>
-
 	</div>
+
 </div>

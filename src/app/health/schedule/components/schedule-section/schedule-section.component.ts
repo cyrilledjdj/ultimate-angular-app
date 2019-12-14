@@ -17,7 +17,7 @@ export class ScheduleSectionComponent implements OnInit {
 
 	ngOnInit() {}
 
-	onSelect(type: string, assigned: string[] = []) {
+	onSelect(type: string, assigned: any[] = []) {
 		const data = this.section;
 		this.selectChange.emit({
 			type,
