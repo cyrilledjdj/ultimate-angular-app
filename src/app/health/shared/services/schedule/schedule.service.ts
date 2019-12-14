@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { Store } from 'store';
 
 import { AuthService } from '../../../../auth/shared/services/auth/auth.service';
 import { Meal } from '../meals/meals.service';
 import { Workout } from '../workouts/workouts.service';
-import { PropertyBindingType } from '@angular/compiler';
 
 export interface ScheduleItem {
 	meals: Meal[];
@@ -28,6 +27,9 @@ export interface ScheduleList {
 })
 export class ScheduleService {
 	private date$ = new BehaviorSubject(new Date());
+	private section$ = new Subject();
+
+	selected$ = this.section$.pipe(tap((next) => this.store.set('selected', next)));
 
 	schedule$: Observable<ScheduleItem[]> = this.date$.pipe(
 		tap((next: any) => this.store.set('date', next)),
@@ -59,6 +61,10 @@ export class ScheduleService {
 
 	updateDate(date: Date) {
 		this.date$.next(date);
+	}
+
+	selectSection(data: any) {
+		this.section$.next(data);
 	}
 
 	private getSchedule(startAt: number, endAt: number) {

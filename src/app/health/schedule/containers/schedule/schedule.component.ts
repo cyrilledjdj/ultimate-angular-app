@@ -27,4 +27,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 	changeDate(date: Date) {
 		this.scheduleService.updateDate(date);
 	}
+	changeSection(data: any) {
+		this.scheduleService.selectSection(data);
+	}
 }
