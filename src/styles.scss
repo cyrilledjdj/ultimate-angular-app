@@ -28,7 +28,7 @@ $angular-pro-app-theme: mat-light-theme($angular-pro-app-primary, $angular-pro-a
 
 /* You can add global styles to this file, and also import other style files */
 
-@import 'bootstrap/dist/css/bootstrap-reboot.min.css';
+@import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
