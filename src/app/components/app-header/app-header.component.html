@@ -1,8 +1,6 @@
-<div class="app-header">
-	<div class="wrapper">
-		<img src="assets/img/logo.svg" alt="logo">
-		<div class="app-header__user-info" *ngIf="user?.authenticated">
-			<span (click)="logoutUser()"></span>
-		</div>
-	</div>
-</div>
+<img src="assets/img/logo.svg" alt="logo">
+<span aria-hidden="true" class="spacer"></span>
+<button mat-icon-button color="warn" *ngIf="user?.authenticated"
+	(click)="logoutUser()" aria-label="Log off" title="Log off">
+	<mat-icon>power_settings_new</mat-icon>
+</button>

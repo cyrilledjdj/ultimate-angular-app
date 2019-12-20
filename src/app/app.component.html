@@ -1,7 +1,14 @@
 <div>
-	<app-header [user]="user$ | async" (logout)="onLogout()"></app-header>
-	<app-nav *ngIf="(user$ | async)?.authenticated"></app-nav>
-	<div class="wrapper">
+	<mat-toolbar>
+		<mat-toolbar-row>
+			<app-header [user]="user$ | async" (logout)="onLogout()">
+			</app-header>
+		</mat-toolbar-row>
+		<mat-toolbar-row *ngIf="(user$ | async)?.authenticated">
+			<app-nav></app-nav>
+		</mat-toolbar-row>
+	</mat-toolbar>
+	<main class="wrapper">
 		<router-outlet></router-outlet>
-	</div>
+	</main>
 </div>

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-nav',
@@ -7,7 +8,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppNavComponent implements OnInit {
-	constructor() {}
-
+	activeLink = '';
+	constructor(private route: ActivatedRoute) {
+		console.log(this.route.outlet);
+	}
 	ngOnInit() {}
 }
