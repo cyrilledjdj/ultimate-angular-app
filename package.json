@@ -45,7 +45,7 @@
 		"@storybook/angular": "^5.2.8",
 		"@types/jasmine": "~3.5.0",
 		"@types/jasminewd2": "~2.0.8",
-		"@types/node": "~12.12.21",
+		"@types/node": "~13.1.0",
 		"babel-loader": "^8.0.6",
 		"bootstrap": "^4.4.1",
 		"codelyzer": "^5.2.1",
