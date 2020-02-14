@@ -5,6 +5,7 @@ import { User } from './auth/shared/services/auth/auth.service';
 import { Meal } from './health/shared/services/meals/meals.service';
 import { Workout } from './health/shared/services/workouts/workouts.service';
 import { ScheduleItem } from './health/shared/services/schedule/schedule.service';
+import { Injectable } from "@angular/core";
 
 export interface State {
 	user: User;
@@ -27,6 +28,7 @@ const state: State = {
 	workouts: undefined
 };
 
+@Injectable()
 export class Store {
 	private subject = new BehaviorSubject<State>(state);
 	private store = this.subject.asObservable().pipe(distinctUntilChanged());

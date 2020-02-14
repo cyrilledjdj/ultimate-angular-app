@@ -16,7 +16,7 @@ import { AuthService } from './services/auth/auth.service';
 	exports: [ AuthFormComponent, MatButtonModule ]
 })
 export class SharedModule {
-	static forRoot(): ModuleWithProviders {
+	static forRoot(): ModuleWithProviders<SharedModule> {
 		return {
 			ngModule: SharedModule,
 			providers: [ AuthService, AuthGuard ]

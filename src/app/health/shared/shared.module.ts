@@ -16,7 +16,7 @@ import { SharedRoutingModule } from './shared-routing.module';
 	exports: [ ListItemComponent, JoinPipe, WorkoutPipe ]
 })
 export class SharedModule {
-	static forRoot(): ModuleWithProviders {
+	static forRoot(): ModuleWithProviders<SharedModule> {
 		return {
 			ngModule: SharedModule,
 			providers: [ MealsService, WorkoutsService, ScheduleService ]
